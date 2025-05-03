@@ -1,4 +1,4 @@
-import { de } from "@faker-js/faker";
+import { faker } from "@faker-js/faker";
 import { User } from "../../helper/interface";
 import { deleteFunction, deleteFunction2, getUser, login, login2, signUp, signUp2 } from "../../helper/user";
 import * as supertest from 'supertest';
@@ -37,7 +37,7 @@ describe('USER SIGNUP AND LOGIN', () => {
             }
         });
 
-        it.only('should signup, login and delete the user using .then()', () => {
+        it('should signup, login and delete the user using .then()', () => {
             return signUp(user)
                 .then((res) => {
                     console.log(res.body);
@@ -65,7 +65,7 @@ describe('USER SIGNUP AND LOGIN', () => {
                 })
         })
 
-        it.only('should signup, login and delete the user using .end()(done callback', (done) => {
+        it('should signup, login and delete the user using .end()(done callback', (done) => {
             signUp2(user)
                 .end((err, res) => {
                     if (err) return done(err);

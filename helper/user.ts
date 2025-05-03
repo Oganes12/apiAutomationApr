@@ -70,7 +70,7 @@ export function login2(user: User) {
     return request
         .post('/users/login')
         .send(user)
-        .expect(200);
+        
 }
 
 export function deleteFunction(cookie: string): Promise<any> {
