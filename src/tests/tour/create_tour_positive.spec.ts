@@ -1,4 +1,6 @@
 import { getUser, signUp } from "../../../helper/user";
+import * as supertest from 'supertest'; // Import supertest
+const request = supertest('http://localhost:8001/api/v1'); // Define request with the base URL
 
 let cookie: string;
 
@@ -15,7 +17,7 @@ describe('CREATE TOUR', () => {
             .post('/tours')
             .set('Cookie', cookie)
             .send({
-                name: "TourForn75",
+                name: "TourForn753",
                 duration: 10,
                 description: "Could be",
                 maxGroupSize: 10,

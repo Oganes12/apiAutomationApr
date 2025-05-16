@@ -1,39 +1,22 @@
-
+import { fi } from "@faker-js/faker";
+import { closeConnection, connectionMongoDB, findUser } from "../../../helper/mongoDB";
 import { getUser, signUp } from "../../../helper/user";
 
 const { MongoClient, Db , ObjectId} = require('mongodb');
+let db: typeof Db
 
 const dotenv = require('dotenv');
 dotenv.config();
 describe('MONGODB connection', () => {
-    
-        let connection: typeof MongoClient;
-        let db: typeof Db
-        beforeAll(async () => {
-            try{
-            connection = await MongoClient.connect(process.env.DATABASE_URL as string, {
-                useNewUrlParser: true,
-                useUnifiedTopology: true,
-            });
-            db = await connection.db();
-            console.log(process.env.DATABASE_URL, 'connection');
-        } catch (error) {
-            console.error('Error connecting to MongoDB:', error);
-        }
-        });
-        afterAll(async () => {
-            await connection.close();
-        });
-        it('Connect to the collection and find user', async () => {
-            const users = db.collection('users');
-            console.log(users, 'users');
-            // Retrieve the document in the collection
-            const user = await users.findOne({name:'Madaline70'})
-           console.log(user, 'user');
-           // console.table(user);
+    connectionMongoDB();
+    closeConnection()
+
+            it.only('Connect to the collection and find user', () => {
+                findUser();
+        });          
     });
 
-        it.only('Create new user with imported data', async () => {
+        it('Create new user with imported data', async () => {
             const userImport = getUser('admin');
             console.log(userImport, 'userImport');
             try{
@@ -62,5 +45,4 @@ describe('MONGODB connection', () => {
                 console.error('Error creating user:', error);
                 throw error;
             }
-        })
 });
