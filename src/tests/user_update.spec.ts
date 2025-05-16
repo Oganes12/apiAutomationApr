@@ -3,9 +3,9 @@ import { deleteFunction, getUser, login, signUp} from "../../helper/user";
 let user: User;
 let cookie: string;
 
-// import * as supertest from 'supertest';
+import * as supertest from 'supertest';
 
-// const request = supertest('http://localhost:8001/api/v1');
+const request = supertest('http://localhost:8001/api/v1');
 
 describe('USER UPDATE - /users/updateMe', () => {
     beforeAll(async() => {
