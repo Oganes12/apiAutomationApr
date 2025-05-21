@@ -1,3 +1,4 @@
+import { de } from "@faker-js/faker";
 import { User } from "../../helper/interface";
 import { deleteFunction, getUser, login, signUp} from "../../helper/user";
 let user: User;
@@ -7,7 +8,7 @@ import * as supertest from 'supertest';
 
 const request = supertest('http://localhost:8001/api/v1');
 
-describe('USER UPDATE - /users/updateMe', () => {
+describe('USER UPDATE - /users/updateMe - POSITIVE', () => {
     beforeAll(async() => {
         user = getUser('admin');
 
@@ -53,6 +54,35 @@ describe('USER UPDATE - /users/updateMe', () => {
             passwordConfirm: 'test1234'
         })
         expect(res.statusCode).toBe(200);
-    }
-    )
+    })
 });
+describe('USER UPDATE - NEGATIVE', () => {
+    beforeAll(async() => {
+        user = getUser('admin');
+
+        const signUpRes = await signUp(user);
+        expect(signUpRes.statusCode).toBe(201);
+
+        const loginRes = await login(user);
+        expect(loginRes.statusCode).toBe(200);
+        cookie = loginRes.headers['set-cookie'][0].split(';')[0];
+        console.log('User was created')
+    });
+
+    afterAll(async() => {
+        await deleteFunction(cookie).then((res) => {
+            expect(res.statusCode).toBe(200);
+        })
+        console.log('User was deleted')
+    })
+    it('should get an error when missing passwordConfirm', async() => {
+        const res = await request
+        .patch('/users/updateMe')
+        .set('Cookie', cookie)
+        .send({
+            password: 'test1234',
+            passwordConfirm: ''
+        })
+        expect(res.statusCode).toBe(400);
+    })
+})
