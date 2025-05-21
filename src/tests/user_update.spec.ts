@@ -44,4 +44,15 @@ describe('USER UPDATE - /users/updateMe', () => {
         .attach('photo', 'data/photo/pasv.png')
         expect(resPhoto.statusCode).toBe(200);
     })
+    it('should update the user password', async() => {
+        const res = await request
+        .patch('/users/updateMe')
+        .set('Cookie', cookie)
+        .send({
+            password: 'test1234',
+            passwordConfirm: 'test1234'
+        })
+        expect(res.statusCode).toBe(200);
+    }
+    )
 });
