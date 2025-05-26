@@ -85,4 +85,14 @@ describe('USER UPDATE - NEGATIVE', () => {
         })
         expect(res.statusCode).toBe(400);
     })
+    it('should get an error when missing password', async() => {
+        const res = await request
+        .patch('/users/updateMe')
+        .set('Cookie', cookie)
+        .send({
+            password: '',
+            passwordConfirm: 'test1234'
+        })
+        expect(res.statusCode).toBe(400);
+    })
 })
