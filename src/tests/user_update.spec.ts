@@ -105,4 +105,13 @@ describe('USER UPDATE - NEGATIVE', () => {
         })
         expect(res.statusCode).toBe(400);
     })
+    it('should get an error when missing name', async() => {
+        const res = await request
+        .patch('/users/updateMe')
+        .set('Cookie', cookie)
+        .send({
+            name: '',
+        })
+        expect(res.statusCode).toBe(400);
+    })
 })
