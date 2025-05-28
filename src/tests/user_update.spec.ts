@@ -105,7 +105,6 @@ describe('USER UPDATE - NEGATIVE', () => {
         })
         expect(res.statusCode).toBe(400);
     })
-userNewUpdate
     it('should get an error when missing name', async() => {
         const res = await request
         .patch('/users/updateMe')
@@ -113,6 +112,13 @@ userNewUpdate
         .send({
             name: '',
         })
+        expect(res.statusCode).toBe(400);
+    })
+    it('should get an error when missing photo', async() => {
+        const res = await request
+        .patch('/users/updateMe')
+        .set('Cookie', cookie)
+        .attach('photo', '')
         expect(res.statusCode).toBe(400);
     })
 })
