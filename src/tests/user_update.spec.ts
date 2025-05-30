@@ -121,4 +121,14 @@ describe('USER UPDATE - NEGATIVE', () => {
         .attach('photo', '')
         expect(res.statusCode).toBe(400);
     })
+    it('should get an error when trying to update with invalid email', async() => {
+        const res = await request
+        .patch('/users/updateMe')
+        .set('Cookie', cookie)
+        .send({
+            name: 'John Doe',
+            email: 'invalid-email'
+        })
+        expect(res.statusCode).toBe(400);
+    })
 })
