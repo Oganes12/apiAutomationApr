@@ -141,6 +141,7 @@ describe('USER UPDATE - NEGATIVE', () => {
         })
         expect(res.statusCode).toBe(400);
     })
+<<<<<<< invalidPass
     it('should get an error when trying to update with invalid photo', async() => {
         const resPhoto = await request
         .patch('/users/updateMe')
@@ -148,4 +149,6 @@ describe('USER UPDATE - NEGATIVE', () => {
         .attach('photo', 'data/photo/invalid.txt')
         expect(resPhoto.statusCode).toBe(400);
     })
+=======
+>>>>>>> master
 })
