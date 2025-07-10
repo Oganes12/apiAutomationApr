@@ -134,5 +134,17 @@ describe('USER SIGN UP', () => {
             expect(res.body.status).toBe('fail');
             expect(res.body.message).toBe('This email is already in use. Please use another email.'); 
         });
+        it('should get an error when trying to sign up with an email that is not a string', async () => {
+            const userData = {
+                "name": "John Doe",
+                "email": 12345, // Invalid email type
+                "password": "mypassword123",
+                "passwordConfirm": "mypassword123"
+            }
+            const res = await request.post('/users/signup').send(userData)
+            expect(res.status).toBe(400);
+            expect(res.body.status).toBe('fail');
+            expect(res.body.message).toBe('User validation failed: email: Please provide a valid email');
+        });
     });
 });
